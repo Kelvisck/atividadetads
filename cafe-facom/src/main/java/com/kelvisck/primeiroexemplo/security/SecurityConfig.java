@@ -1,4 +1,4 @@
-package com.kelvisck.primeiroexemplo;
+package com.kelvisck.primeiroexemplo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,8 @@ public class SecurityConfig{
             .formLogin()
             .and()
             .logout();*/
-        http.csrf(csrf -> csrf.disable());
+        http.csrf(csrf -> csrf.disable()).oauth2ResourceServer(oauth2 -> oauth2.
+        jwt(jwt -> jwt.jwtAuthenticationConverter(new JWTconverter())));
 
         return http.build();
     }
