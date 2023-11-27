@@ -2,12 +2,14 @@ package com.kelvisck.primeiroexemplo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 
 // documentacao em http://localhost:8085/swagger-ui/index.html 
 
 
 @SpringBootApplication
+@ComponentScan("com.kelvisck.primeiroexemplo")
 public class PrimeiroExemploApplication {
 
 	public static void main(String[] args) {
