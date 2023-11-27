@@ -35,15 +35,15 @@ public class KeyCloackToken {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> responseEntity = restTemplate.postForEntity(keycloakTokenUrl, request, String.class);
 
-            // Exibe a resposta no console para validação
+    
             String response = responseEntity.getBody();
             System.out.println("Resposta do servidor: " + response);
 
             return response;
         } catch (Exception e) {
-            // Exibe a exceção no console
+            
             e.printStackTrace();
-            return null; // ou lança a exceção para que você possa ver o erro no console
+            return null; 
         }
     }
 }
