@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -17,18 +19,21 @@ public class SecurityConfig{
  
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        /*http
-            .authorizeRequests(authorize ->
-                authorize
-                    .requestMatchers("/public/**").permitAll()
-                    .anyRequest().authenticated()
-            )
-            .formLogin()
-            .and()
-            .logout();*/
-        http.csrf(csrf -> csrf.disable()).oauth2ResourceServer(oauth2 -> oauth2.
-        jwt(jwt -> jwt.jwtAuthenticationConverter(new JWTconverter())));
+        
 
+        /*http
+            .csrf(csrf -> csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()));*/
+        http.csrf(csrf -> csrf.disable())
+
+
+         .authorizeRequests(authorizeRequests ->
+            authorizeRequests
+                .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/private/**").authenticated()
+        )
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new JWTconverter())));
         return http.build();
     }
 
